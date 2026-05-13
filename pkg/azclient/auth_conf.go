@@ -35,7 +35,10 @@ type AzureAuthConfig struct {
 	AADClientCertPassword string `json:"aadClientCertPassword,omitempty" yaml:"aadClientCertPassword,omitempty" datapolicy:"password"`
 	// Use managed service identity for the virtual machine to access Azure ARM APIs
 	UseManagedIdentityExtension bool `json:"useManagedIdentityExtension,omitempty" yaml:"useManagedIdentityExtension,omitempty"`
-	// UserAssignedIdentityID contains the Client ID of the user assigned MSI which is assigned to the underlying VMs. If empty the user assigned identity is not used.
+	// UserAssignedIdentityID identifies the user assigned MSI which is assigned to the underlying VMs. If empty the user assigned identity is not used.
+	// This field accepts either a client ID (e.g. "00000000-0000-0000-0000-000000000000") or an ARM resource ID
+	// (e.g. "/subscriptions/{sub}/resourceGroups/{rg}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{name}").
+	// The format is auto-detected based on the presence of "/subscriptions/" in the value.
 	// More details of the user assigned identity can be found at: https://docs.microsoft.com/en-us/azure/active-directory/managed-service-identity/overview
 	// For the user assigned identity specified here to be used, the UseManagedIdentityExtension has to be set to true.
 	UserAssignedIdentityID string `json:"userAssignedIdentityID,omitempty" yaml:"userAssignedIdentityID,omitempty"`
